@@ -8,8 +8,7 @@ const whatsapp = require('../services/whatsapp');
  */
 function setupCronJobs(cron) {
   // === MIDNIGHT RESET — Reset all vegetables to unavailable at 00:00 IST ===
-  // Cron runs at 00:00 IST = 18:30 UTC (previous day)
-  cron.schedule('30 18 * * *', async () => {
+  cron.schedule('0 0 * * *', async () => {
     try {
       const result = await Vegetable.updateMany({}, { availableToday: false });
       console.log(`[Cron] Midnight reset: ${result.modifiedCount} vegetables set to unavailable`);

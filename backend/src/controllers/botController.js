@@ -241,6 +241,12 @@ async function handleSelecting(session, phone, messageBody, messageType) {
     return;
   }
 
+  const mongoose = require('mongoose');
+  if (!mongoose.Types.ObjectId.isValid(selectedVegId)) {
+    await whatsapp.sendTextMessage(phone, 'Maaf kijiye, samajh nahi aaya. 🤔\nKripya list mein se sabzi chunein ya "HI" bhejein.');
+    return;
+  }
+
   const vegetable = await Vegetable.findById(selectedVegId);
   if (!vegetable || !vegetable.availableToday) {
     await whatsapp.sendTextMessage(phone, 'Yeh sabzi aaj uplabdh nahi hai. Koi aur chunein. 🙏');
