@@ -7,6 +7,22 @@ const whatsapp = require('../services/whatsapp');
  * Set up all scheduled cron jobs
  */
 function setupCronJobs(cron) {
+  // === KEEP ALIVE PING — Prevent Render free tier from sleeping ===
+  // Pings the server's own health endpoint every 5 minutes
+  cron.schedule('*/5 * * * *', async () => {
+    try {
+      const serverUrl = process.env.SERVER_URL;
+      if (!serverUrl) return; // Only run if SERVER_URL is set
+      
+      const response = await fetch(`${serverUrl}/health`);
+      if (response.ok) {
+        console.log('[Cron] Keep-alive ping successful');
+      }
+    } catch (error) {
+      console.error('[Cron] Keep-alive ping failed:', error.message);
+    }
+  });
+
   // === MIDNIGHT RESET — Reset all vegetables to unavailable at 00:00 IST ===
   cron.schedule('0 0 * * *', async () => {
     try {
