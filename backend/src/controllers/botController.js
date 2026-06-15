@@ -191,7 +191,7 @@ async function sendVegetableList(phone, settings) {
   // Build list sections (Meta allows max 10 items per section, max 10 sections)
   const rows = vegetables.map(veg => ({
     id: veg._id.toString(),
-    title: `${veg.emoji} ${veg.name}`,
+    title: veg.emoji ? `${veg.emoji} ${veg.name}` : veg.name,
     description: `₹${veg.pricePerKg}/${veg.unit}`,
   }));
 

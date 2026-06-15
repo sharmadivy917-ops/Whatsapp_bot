@@ -21,7 +21,7 @@ export default function VegetableCard({ vegetable, onEdit, onDelete, onToggle })
       {/* Header */}
       <div className="flex items-start justify-between mb-3">
         <div className="flex items-center gap-3">
-          <span className="text-3xl">{vegetable.emoji || '🥬'}</span>
+          {vegetable.emoji && <span className="text-3xl">{vegetable.emoji}</span>}
           <div>
             <h3 className="font-semibold text-gray-800 text-lg">{vegetable.name}</h3>
             <p className="text-primary-600 font-bold text-lg">

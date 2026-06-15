@@ -14,7 +14,7 @@ export default function Vegetables() {
   const [showModal, setShowModal] = useState(false);
   const [editingVeg, setEditingVeg] = useState(null);
   const [form, setForm] = useState({
-    name: '', emoji: '🥬', pricePerKg: '', unit: 'kg',
+    name: '', emoji: '', pricePerKg: '', unit: 'kg',
     availableToday: true, stock: '', lowStockThreshold: '5',
   });
 
@@ -35,7 +35,7 @@ export default function Vegetables() {
   function openAddModal() {
     setEditingVeg(null);
     setForm({
-      name: '', emoji: '🥬', pricePerKg: '', unit: 'kg',
+      name: '', emoji: '', pricePerKg: '', unit: 'kg',
       availableToday: true, stock: '', lowStockThreshold: '5',
     });
     setShowModal(true);
@@ -203,8 +203,19 @@ export default function Vegetables() {
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Emoji Picker */}
           <div>
-            <label className="block text-sm font-medium text-gray-600 mb-1.5">Emoji</label>
+            <label className="block text-sm font-medium text-gray-600 mb-1.5">Emoji (Optional)</label>
             <div className="flex flex-wrap gap-2">
+              <button
+                type="button"
+                onClick={() => setForm({ ...form, emoji: '' })}
+                className={`px-3 h-10 rounded-xl text-sm font-medium flex items-center justify-center transition-all ${
+                  form.emoji === ''
+                    ? 'bg-primary-100 ring-2 ring-primary-500 scale-105 text-primary-700'
+                    : 'bg-gray-50 hover:bg-gray-100 text-gray-500'
+                }`}
+              >
+                None
+              </button>
               {EMOJI_OPTIONS.map(emoji => (
                 <button
                   key={emoji}
