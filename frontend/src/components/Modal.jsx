@@ -21,10 +21,11 @@ export default function Modal({ isOpen, onClose, title, children, size = 'md' })
       {/* Modal */}
       <div
         className={`relative w-full ${sizeClasses[size]} bg-white rounded-2xl shadow-2xl 
-                     animate-fade-in max-h-full overflow-hidden flex flex-col`}
+                     animate-fade-in flex flex-col`}
+        style={{ maxHeight: 'calc(100vh - 2rem)' }}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 shrink-0">
           <h2 className="text-lg font-semibold text-gray-800">{title}</h2>
           <button
             onClick={onClose}
@@ -35,7 +36,7 @@ export default function Modal({ isOpen, onClose, title, children, size = 'md' })
         </div>
 
         {/* Body */}
-        <div className="overflow-y-auto px-6 py-5 min-h-0">
+        <div className="overflow-y-auto px-6 py-5">
           {children}
         </div>
       </div>
