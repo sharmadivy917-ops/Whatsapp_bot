@@ -2,14 +2,14 @@
 FROM node:20-alpine AS backend
 WORKDIR /app/backend
 COPY backend/package*.json ./
-RUN npm ci --only=production
+RUN npm install --omit=dev
 COPY backend/ ./
 
 # === Frontend Build ===
 FROM node:20-alpine AS frontend-build
 WORKDIR /app/frontend
 COPY frontend/package*.json ./
-RUN npm ci
+RUN npm install
 COPY frontend/ ./
 RUN npm run build
 
