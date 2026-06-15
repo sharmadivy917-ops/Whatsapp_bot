@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:7
+    container_name: vegbot-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    environment:
+      - MONGO_INITDB_DATABASE=vegbot
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vegbot-app
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - MONGODB_URI=mongodb://mongodb:27017/vegbot
+      - NODE_ENV=production
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin123}
+      - JWT_SECRET=${JWT_SECRET:-vegbot_jwt_secret_change_in_production}
+      - META_ACCESS_TOKEN=${META_ACCESS_TOKEN:-}
+      - META_PHONE_NUMBER_ID=${META_PHONE_NUMBER_ID:-}
+      - META_WEBHOOK_VERIFY_TOKEN=${META_WEBHOOK_VERIFY_TOKEN:-vegbot_verify_token}
+      - RAZORPAY_KEY_ID=${RAZORPAY_KEY_ID:-}
+      - RAZORPAY_KEY_SECRET=${RAZORPAY_KEY_SECRET:-}
+      - RAZORPAY_WEBHOOK_SECRET=${RAZORPAY_WEBHOOK_SECRET:-}
+      - OWNER_PHONE=${OWNER_PHONE:-}
+    depends_on:
+      - mongodb
+
+volumes:
+  mongo_data:
