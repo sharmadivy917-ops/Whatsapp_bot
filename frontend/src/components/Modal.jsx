@@ -21,7 +21,7 @@ export default function Modal({ isOpen, onClose, title, children, size = 'md' })
       {/* Modal */}
       <div
         className={`relative w-full ${sizeClasses[size]} bg-white rounded-2xl shadow-2xl 
-                     animate-fade-in max-h-[90vh] flex flex-col`}
+                     animate-fade-in max-h-full overflow-hidden flex flex-col`}
       >
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
