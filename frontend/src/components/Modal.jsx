@@ -1,4 +1,5 @@
 import { X } from 'lucide-react';
+import { createPortal } from 'react-dom';
 
 export default function Modal({ isOpen, onClose, title, children, size = 'md' }) {
   if (!isOpen) return null;
@@ -10,9 +11,9 @@ export default function Modal({ isOpen, onClose, title, children, size = 'md' })
     xl: 'max-w-4xl',
   };
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 z-[60] overflow-y-auto">
-      <div className="flex min-h-full items-center justify-center p-4 sm:p-6">
+      <div className="flex min-h-screen items-center justify-center p-4 sm:p-6">
         {/* Backdrop */}
         <div
           className="fixed inset-0 bg-black/40 backdrop-blur-sm"
@@ -41,6 +42,7 @@ export default function Modal({ isOpen, onClose, title, children, size = 'md' })
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
